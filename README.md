@@ -1,69 +1,123 @@
-# A Hybrid Intelligence Framework for Computationally Efficient and Trustworthy Coastal Wave Forecasting
+# A Knowledge‑Based Hybrid Expert System for Trustworthy Coastal Wave Forecasting via Causal Discovery and Uncertainty‑Aware Decision Support
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-This repository contains the official code and data for the research paper, "A Hybrid Intelligence Framework for Computationally Efficient and Trustworthy Coastal Wave Forecasting," submitted to *Expert Systems with Applications*.
+## Overview
 
-## Abstract
+This repository contains the official implementation of the paper:
 
-Accurate and timely forecasting of coastal wave conditions is critical for maritime safety and operations. This work introduces a novel hybrid intelligence framework that synergizes causal inference, targeted feature engineering, and state-of-the-art machine learning to create a computationally efficient, highly accurate, and transparent coastal wave forecasting system. Our results demonstrate that this decoupled approach provides a robust and trustworthy alternative to traditional modeling paradigms for complex geophysical systems.
+> **Uncertainty-Aware Knowledge-Based Hybrid Expert Decision Support system for Marine Safety Powered by Causal Discovery**  
+> *Submitted to Knowledge‑Based Systems (Elsevier)*
 
-![Framework Diagram](figures/Fig_1_Framework_Diagram.png)
-*Fig 1. The three-phase Hybrid Intelligence Framework.*
+We introduce a Hybrid Expert Decision Support System for coastal wave forecasting that combines:
+- **Causal discovery (PCMCI+)** to isolate physically meaningful offshore predictors,
+- **Structurally constrained, natively interpretable models** (EBM and Attention‑LSTM) that resist the Regularisation Tax,
+- **Uncertainty decoupling** (conformal prediction + ensemble disagreement) and **VIKOR multi‑criteria decision making** for operational risk classification.
 
-## Key Features
+## Key Contributions
 
--   **Causal Predictor Selection:** Utilizes the PCMCI+ algorithm to identify a parsimonious and physically relevant subset of offshore predictors.
--   **Comparative Modeling:** Provides a rigorous benchmark of four models (XGBoost, LightGBM, Random Forest, EBM) using a Nested, Blocked Cross-Validation scheme.
--   **Trustworthy AI:** Demonstrates a "convergent evidence" paradigm where multiple models independently agree on the key physical drivers of wave events.
--   **Decision Support System (DSS):** Implements a complete DSS with probabilistic forecasting (Conformal Prediction), automated recommendations (VIKOR), and explainability (XAI).
+- PCMCI+ reduces 102 offshore grid points to 5 causally validated predictors
+- Over‑parameterised models (TFT, LightGBM) collapse at extended horizons; EBM and Attention‑LSTM maintain stable accuracy
+- Aleatoric and epistemic uncertainties are formally decoupled
+- VIKOR‑based DSS outputs colour‑coded operational risk levels (Safe / Warning / Danger)
 
 ## Repository Structure
+Hybrid-Wave-Forecasting-DSS/
+├── notebooks/ # Jupyter notebooks for each pipeline stage
+├── src/ # Reusable Python utility functions
+├── data/ # Sample input and data access instructions
+├── outputs/ # Generated figures and tables
+│ ├── figures/
+│ └── tables/
+├── models/ # Trained model weights (download links)
+├── requirements.txt # Python dependencies
+└── README.md
 
--   `/notebooks`: Contains the Jupyter notebooks for each stage of the project, from feature engineering to the final DSS implementation.
--   `/data`: Contains the final, engineered dataset used for model training and evaluation.
--   `/figures`: Contains all the final, publication-quality figures presented in the manuscript.
--   `/src`: (Optional) Contains reusable Python utility functions.
+## Installation
 
-## Installation & Setup
+```bash
+git clone https://github.com/HoseinDjawadi/Hybrid-Wave-Forecasting-DSS.git
+cd Hybrid-Wave-Forecasting-DSS
+pip install -r requirements.txt
+```
 
-To replicate the results, please follow these steps:
+## Data
+Due to a non‑disclosure agreement, the raw buoy observations cannot be publicly distributed. Researchers interested in accessing the full dataset should contact the corresponding author (see below). A small synthetic sample (data/sample_input.csv) is provided for code testing.
 
-1.  Clone the repository:
-    ```bash
-    git clone [https://github.com/YourUsername/Hybrid-Wave-Forecasting-DSS.git](https://github.com/YourUsername/Hybrid-Wave-Forecasting-DSS.git)
-    cd Hybrid-Wave-Forecasting-DSS
-    ```
-
-2.  Create a Python virtual environment (recommended):
-    ```bash
-    python -m venv venv
-    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-    ```
-
-3.  Install the required libraries:
-    ```bash
-    pip install -r requirements.txt
-    ```
-    *Note: The cuML library for the GPU-accelerated Random Forest requires a specific CUDA-enabled environment. Please refer to the official [RAPIDS installation guide](https://rapids.ai/start.html) for setup.*
+The offshore predictor data are derived from CMEMS / HYCOM reanalysis products. Bathymetric data are from the GEBCO 2024 Grid. Instructions for obtaining these public datasets are in data/README.md.
 
 ## Usage
+The pipeline is organised as a series of Jupyter notebooks inside notebooks/:
 
-The Jupyter notebooks in the `/notebooks` directory are numbered in the order they should be run:
+01_Predictor_Selection.ipynb — causal predictor selection with PCMCI+
 
-1.  `1_Feature_Engineering.ipynb`: Loads the raw data and generates the final feature set.
-2.  `2_EBM_Model.ipynb` to `5_Random_Forest_Model.ipynb`: Train and evaluate each of the four models.
-3.  `6_DSS_Implementation.ipynb`: Implements the final Decision Support System using the champion model.
+02_Feature_Engineering.ipynb — lag, rolling, and physics‑informed feature engineering
+
+03_Baselines.ipynb — persistence and SMA‑12h statistical baselines
+
+04_LightGBM.ipynb — LightGBM baseline training and evaluation
+
+05_EBM.ipynb — Explainable Boosting Machine
+
+06_Attention_LSTM.ipynb — Attention‑LSTM model
+
+07_TFT.ipynb — Temporal Fusion Transformer baseline
+
+08_DSS_Dashboard.ipynb — meta‑ensemble, conformal prediction, VIKOR DSS
+
+## Results
+All manuscript figures are available in outputs/figures/. Key results include:
+
+Regularisation Tax: TFT R² falls from 0.34 (+3 h) to −0.05 (+24 h); EBM and Attention‑LSTM remain above 0.20
+
+PICP: Conformal prediction intervals achieve 89.99 % empirical coverage (nominal 90 %)
+
+VIKOR Risk: Danger classification correctly isolates the April 2024 storm peak
 
 ## Citation
-
-If you use this code or our findings in your research, please cite our paper:
+If you use this code or data in your research, please cite our paper:
 
 ```bibtex
-@article{Djawadi2025,
-  title={A Hybrid Intelligence Framework for Computationally Efficient and Trustworthy Coastal Wave Forecasting},
-  author={Djawadi, M. H. S. and [Your Supervisor's Name]},
-  journal={Expert Systems with Applications},
-  year={2025},
-  publisher={Elsevier}
+@article{seyed2025hybrid,
+  title   = {A Knowledge‑Based Hybrid Expert System for Trustworthy Coastal
+             Wave Forecasting via Causal Discovery and Uncertainty‑Aware
+             Decision Support},
+  author  = {M.R. Nikoo, M.H. Seyed‑Djawadi and Talal Etri},
+  journal = {Knowledge‑Based Systems},
+  year    = {2026},
+  publisher = {Elsevier}
 }
+```
+## License
+This project is licensed under the MIT License — see LICENSE for details.
+
+## Contact
+For data access requests or questions: t.etri1@squ.edu.om
+
+---
+
+## 6 – data
+
+```markdown
+# Data Access
+
+## Buoy Observations
+
+The nearshore buoy observations used in this study are subject to a non‑disclosure agreement and **cannot** be publicly redistributed. Researchers may request access by contacting the corresponding author at [Your Email].
+
+A synthetic sample file (`sample_input.csv`) with the same column structure but randomised values is provided for testing the pipeline.
+
+## Offshore Predictor Data (CMEMS / HYCOM)
+
+Offshore wave parameters and wind fields were obtained from the Copernicus Marine Environment Monitoring Service (CMEMS) and the HYbrid Coordinate Ocean Model (HYCOM). These datasets are publicly available:
+
+- CMEMS: [https://marine.copernicus.eu](https://marine.copernicus.eu)
+- HYCOM: [https://www.hycom.org](https://www.hycom.org)
+
+## Bathymetry (GEBCO)
+
+The bathymetric data are from the GEBCO 2024 Grid, available at:
+
+- [https://www.gebco.net/data_and_products/gridded_bathymetry_data/](https://www.gebco.net/data_and_products/gridded_bathymetry_data/)
+
+The specific NetCDF tile used in this study covers the Gulf of Oman region.
