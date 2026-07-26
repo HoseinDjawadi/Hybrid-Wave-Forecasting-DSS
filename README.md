@@ -1,4 +1,4 @@
-# A Knowledge‑Based Hybrid Expert System for Trustworthy Coastal Wave Forecasting via Causal Discovery and Uncertainty‑Aware Decision Support
+# Coastal Wave Forecasting for Maritime Safety: A Causal, Interpretable, and Uncertainty-Aware Decision Support Framework
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -6,10 +6,10 @@
 
 This repository contains the official implementation of the paper:
 
-> **Uncertainty-Aware Knowledge-Based Hybrid Expert Decision Support system for Marine Safety Powered by Causal Discovery**  
-> *Submitted to Knowledge‑Based Systems (Elsevier)*
+> **An Expert Decision Support system for Marine Safety Powered by Causal Discovery**  
+> *Submitted to Reliability Engineering & System Safety (Elsevier)*
 
-We introduce a Hybrid Expert Decision Support System for coastal wave forecasting that combines:
+We introduce a  Decision Support System for coastal wave forecasting that combines:
 - **Causal discovery (PCMCI+)** to isolate physically meaningful offshore predictors,
 - **Structurally constrained, natively interpretable models** (EBM and Attention‑LSTM) that resist the Regularisation Tax,
 - **Uncertainty decoupling** (conformal prediction + ensemble disagreement) and **VIKOR multi‑criteria decision making** for operational risk classification.
@@ -79,11 +79,9 @@ If you use this code or data in your research, please cite our paper:
 
 ```bibtex
 @article{seyed2025hybrid,
-  title   = {A Knowledge‑Based Hybrid Expert System for Trustworthy Coastal
-             Wave Forecasting via Causal Discovery and Uncertainty‑Aware
-             Decision Support},
+  title   = {Coastal Wave Forecasting for Maritime Safety: A Causal, Interpretable, and Uncertainty-Aware Decision Support Framework},
   author  = {M.R. Nikoo, M.H. Seyed‑Djawadi and Talal Etri},
-  journal = {Knowledge‑Based Systems},
+  journal = {Reliability Engineering & System Safety},
   year    = {2026},
   publisher = {Elsevier}
 }
